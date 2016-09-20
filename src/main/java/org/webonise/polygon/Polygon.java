@@ -1,7 +1,6 @@
-package org.nitishm.polygon;
+package org.webonise.polygon;
 
 public class Polygon {
-
     private final int noOfSides;
     private final double sideLength;
 
@@ -15,6 +14,6 @@ public class Polygon {
     }
 
     public double getSideLength() {
-        return  sideLength;
+        return sideLength;
     }
 }
