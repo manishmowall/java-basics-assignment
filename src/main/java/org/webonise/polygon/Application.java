@@ -22,10 +22,8 @@ public class Application {
 
         try {
             startApplication();
-        } catch (IllegalArgumentException illegalArgumentException) {
+        } catch (IllegalArgumentException | InputMismatchException illegalArgumentException) {
             logger.log(Level.INFO, illegalArgumentException.getMessage());
-        } catch (InputMismatchException inputMismatchException) {
-            logger.log(Level.INFO, inputMismatchException.getMessage());
         }
     }
 
@@ -36,7 +34,7 @@ public class Application {
         logger.log(Level.INFO, "enter no of sides(int) of Polygon: ");
         int noOfSides = input.nextInt();
 
-        checkNoOfSideLimit(noOfSides);
+        checkNoOfSidesLimit(noOfSides);
 
         logger.log(Level.INFO, "enter length of side(double) of Polygon: ");
         double sideLength = input.nextDouble();
@@ -59,11 +57,22 @@ public class Application {
         }
     }
 
-    private void checkNoOfSideLimit(int noOfSides) throws IllegalArgumentException {
-
-        if (noOfSides < MIN_SIDES || noOfSides > MAX_SIDES) {
-            throw new IllegalArgumentException("Error: No of Sides should be >= " + MIN_SIDES + " and " + "<= " + MAX_SIDES);
+    private void checkNoOfSidesLimit(int noOfSides) {
+        if (isNoOfSidesValid(noOfSides)) {
+            logger.log(Level.INFO, "No of Sides within limit");
+        } else {
+            logger.log(Level.INFO, "No of Sides should be >= " + MIN_SIDES + " and " + "<= " + MAX_SIDES);
+            System.exit(0);
         }
+
+    }
+
+    private boolean isNoOfSidesValid(int noOfSides) {
+        if (noOfSides < MIN_SIDES || noOfSides > MAX_SIDES) {
+            return false;
+        }
+
+        return true;
     }
 
     private void perimeterMenu(int noOfSides, double sideLength) throws IllegalArgumentException, InputMismatchException {
